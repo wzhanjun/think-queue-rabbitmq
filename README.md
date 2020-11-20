@@ -1,10 +1,10 @@
-# think-queue-rabbitmq for ThinkPHP5.1
+# think-queue-rabbitmq for ThinkPHP5.0
 
-TP5 队列没有 RabbitMQ 驱动十分不便，借鉴了 Laravel 的 RabbitMQ 驱动包 [vyuldashev/laravel-queue-rabbitmq](https://github.com/vyuldashev/laravel-queue-rabbitmq)，为 TP 增加 RabbitMQ 驱动
+本项目基于[jayazhao/think-queue-rabbitmq](https://github.com/jayazhao/think-queue-rabbitmq), 调整原项目适配TP5.0
 
 ## 安装
 
-> composer require jayazhao/think-queue-rabbitmq
+> composer require wzhanjun/think-queue-rabbitmq
 
 ## 配置
 

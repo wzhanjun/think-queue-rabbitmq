@@ -1,14 +1,10 @@
 <?php
-/**
- * @author jayazhao
- * @license http://www.apache.org/licenses/LICENSE-2.0
- */
 
-namespace jayazhao\queue\job;
+namespace wzhanjun\queue\job;
 
 use think\helper\Str;
 use think\queue\Job;
-use jayazhao\queue\connector\RabbitMQ as RabbitMQQueue;
+use wzhanjun\queue\connector\RabbitMQ as RabbitMQQueue;
 use Interop\Amqp\AmqpConsumer;
 use Interop\Amqp\AmqpMessage;
 use Exception;
@@ -18,7 +14,7 @@ class RabbitMQ extends Job
     /**
      * Same as RabbitMQQueue, used for attempt counts.
      */
-    public const ATTEMPT_COUNT_HEADERS_KEY = 'attempts_count';
+    const ATTEMPT_COUNT_HEADERS_KEY = 'attempts_count';
 
     protected $connection;
     protected $consumer;

@@ -1,10 +1,6 @@
 <?php
-/**
- * @author jayazhao
- * @license http://www.apache.org/licenses/LICENSE-2.0
- */
 
-namespace jayazhao\queue\connector;
+namespace wzhanjun\queue\connector;
 
 use Enqueue\AmqpLib\AmqpConnectionFactory;
 use Enqueue\AmqpLib\AmqpContext;
@@ -14,10 +10,10 @@ use Interop\Amqp\AmqpMessage;
 use Interop\Amqp\AmqpQueue;
 use Interop\Amqp\AmqpTopic;
 use Interop\Amqp\Impl\AmqpBind;
-use think\facade\Log;
 use think\helper\Str;
+use think\Log;
 use think\queue\Connector;
-use jayazhao\queue\job\RabbitMQ as RabbitMQJob;
+use wzhanjun\queue\job\RabbitMQ as RabbitMQJob;
 
 class RabbitMQ extends Connector
 {
@@ -118,8 +114,8 @@ class RabbitMQ extends Connector
                 $message->setProperties($this->options['properties']);
             }
 
-            if (isset($this->options['attempts'])) {
-                $message->setProperty(RabbitMQJob::ATTEMPT_COUNT_HEADERS_KEY, $this->options['attempts']);
+            if (isset($options['attempts'])) {
+                $message->setProperty(RabbitMQJob::ATTEMPT_COUNT_HEADERS_KEY, $options['attempts']);
             }
 
             $producer = $this->context->createProducer();
