@@ -1,7 +1,7 @@
 {
   "name": "wzhanjun/think-queue-rabbitmq",
   "description": "为 ThinkPHP5.0 队列增加 RabbitMQ 驱动",
-  "keywords": "thinkphp 5.0 rabbitmq queue",
+  "keywords": ["thinkphp5", "think-extend", "rabbitmq", "queue"],
   "type": "think-extend",
   "authors": [
     {
