@@ -9,7 +9,7 @@
       "email": "aaasayok@gmail.com"
     }
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "wzhanjun\\": "src"
