@@ -1,19 +1,18 @@
 <?php
 
-/**
- * This is an example of queue connection configuration.
- * It will be merged into config/queue.php.
- * You need to set proper values in `.env`.
+/*
+ * This file is part of the wzhanjun/think-queue-rabbitmq.
+ * (c) aaasayok <aaasayok@gmail.com>
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 use think\Env;
 
-
 return [
-
     'connector' => 'jayazhao\\queue\\connector\\RabbitMQ',
 
-    'dsn' =>  Env::get('RABBITMQ_DSN', null),
+    'dsn' => Env::get('RABBITMQ_DSN', null),
 
     'host' => Env::get('RABBITMQ_HOST', '127.0.0.1'),
     'port' => Env::get('RABBITMQ_PORT', 5672),
@@ -25,9 +24,7 @@ return [
     'queue' => Env::get('RABBITMQ_QUEUE', 'default'),
 
     'options' => [
-
         'exchange' => [
-
             'name' => Env::get('RABBITMQ_EXCHANGE_NAME'),
 
             /*
@@ -46,7 +43,6 @@ return [
         ],
 
         'queue' => [
-
             /*
             * Determine if queue should be created if it does not exist.
             */
@@ -60,11 +56,11 @@ return [
             /*
             * Read more about possible values at https://www.rabbitmq.com/tutorials/amqp-concepts.html
             */
-            'passive'     => Env::get('RABBITMQ_QUEUE_PASSIVE', false),
-            'durable'     => Env::get('RABBITMQ_QUEUE_DURABLE', true),
-            'exclusive'   => Env::get('RABBITMQ_QUEUE_EXCLUSIVE', false),
+            'passive' => Env::get('RABBITMQ_QUEUE_PASSIVE', false),
+            'durable' => Env::get('RABBITMQ_QUEUE_DURABLE', true),
+            'exclusive' => Env::get('RABBITMQ_QUEUE_EXCLUSIVE', false),
             'auto_delete' => Env::get('RABBITMQ_QUEUE_AUTODELETE', false),
-            'arguments'   => Env::get('RABBITMQ_QUEUE_ARGUMENTS'),
+            'arguments' => Env::get('RABBITMQ_QUEUE_ARGUMENTS'),
         ],
     ],
 
@@ -78,11 +74,11 @@ return [
      * Optional SSL params if an SSL connection is used
      */
     'ssl_params' => [
-        'ssl_on'      => Env::get('RABBITMQ_SSL', false),
-        'cafile'      => Env::get('RABBITMQ_SSL_CAFILE', null),
-        'local_cert'  => Env::get('RABBITMQ_SSL_LOCALCERT', null),
-        'local_key'   => Env::get('RABBITMQ_SSL_LOCALKEY', null),
+        'ssl_on' => Env::get('RABBITMQ_SSL', false),
+        'cafile' => Env::get('RABBITMQ_SSL_CAFILE', null),
+        'local_cert' => Env::get('RABBITMQ_SSL_LOCALCERT', null),
+        'local_key' => Env::get('RABBITMQ_SSL_LOCALKEY', null),
         'verify_peer' => Env::get('RABBITMQ_SSL_VERIFY_PEER', true),
-        'passphrase'  => Env::get('RABBITMQ_SSL_PASSPHRASE', null),
+        'passphrase' => Env::get('RABBITMQ_SSL_PASSPHRASE', null),
     ],
 ];

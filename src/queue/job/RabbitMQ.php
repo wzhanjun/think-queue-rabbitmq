@@ -1,13 +1,20 @@
 <?php
 
+/*
+ * This file is part of the wzhanjun/think-queue-rabbitmq.
+ * (c) aaasayok <aaasayok@gmail.com>
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace wzhanjun\queue\job;
 
+use Exception;
+use Interop\Amqp\AmqpConsumer;
+use Interop\Amqp\AmqpMessage;
 use think\helper\Str;
 use think\queue\Job;
 use wzhanjun\queue\connector\RabbitMQ as RabbitMQQueue;
-use Interop\Amqp\AmqpConsumer;
-use Interop\Amqp\AmqpMessage;
-use Exception;
 
 class RabbitMQ extends Job
 {
@@ -63,7 +70,7 @@ class RabbitMQ extends Job
         /*
          * Some jobs don't have the command set, so fall back to just sending it the job name string
          */
-        if (isset($body['data']['command']) === true) {
+        if (true === isset($body['data']['command'])) {
             $job = $this->unserialize($body);
         } else {
             $job = $this->getName();
@@ -73,7 +80,6 @@ class RabbitMQ extends Job
 
         $this->connection->release($delay, $job, $data, $this->getQueue(), $this->attempts() + 1);
     }
-
 
     /**
      * Get the decoded body of the job.
@@ -87,8 +93,6 @@ class RabbitMQ extends Job
 
     /**
      * Unserialize job.
-     *
-     * @param array $body
      *
      * @throws Exception
      *
@@ -116,7 +120,6 @@ class RabbitMQ extends Job
     /**
      * Determine if the given exception was caused by a deadlock.
      *
-     * @param  \Exception  $e
      * @return bool
      */
     protected function causedByDeadlock(Exception $e)

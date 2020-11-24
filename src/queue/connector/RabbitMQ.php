@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the wzhanjun/think-queue-rabbitmq.
+ * (c) aaasayok <aaasayok@gmail.com>
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace wzhanjun\queue\connector;
 
 use Enqueue\AmqpLib\AmqpConnectionFactory;
@@ -17,17 +24,16 @@ use wzhanjun\queue\job\RabbitMQ as RabbitMQJob;
 
 class RabbitMQ extends Connector
 {
-
     /* @var AmqpContext */
     protected $context;
 
     protected $options = [
-        'dsn'        => '',
-        'host'       => '127.0.0.1',
-        'port'       => 5672,
-        'login'      => 'guest',
-        'password'   => 'guest',
-        'vhost'      => '/',
+        'dsn' => '',
+        'host' => '127.0.0.1',
+        'port' => 5672,
+        'login' => 'guest',
+        'password' => 'guest',
+        'vhost' => '/',
         'ssl_params' => [
             'ssl_on' => false,
             'cafile' => null,
@@ -135,7 +141,7 @@ class RabbitMQ extends Connector
 
     public function later($delay, $job, $data = '', $queue = null)
     {
-        return $this->pushRaw($this->createPayload($job,$data, $queue), $queue, ['delay' => $delay]);
+        return $this->pushRaw($this->createPayload($job, $data, $queue), $queue, ['delay' => $delay]);
     }
 
     public function pop($queueName = null)
@@ -159,11 +165,12 @@ class RabbitMQ extends Connector
     /**
      * Release a reserved job back onto the queue.
      *
-     * @param  \DateTimeInterface|\DateInterval|int $delay
-     * @param  string|object $job
-     * @param  mixed $data
-     * @param  string $queue
-     * @param  int $attempts
+     * @param \DateTimeInterface|\DateInterval|int $delay
+     * @param string|object                        $job
+     * @param mixed                                $data
+     * @param string                               $queue
+     * @param int                                  $attempts
+     *
      * @return mixed
      */
     public function release($delay, $job, $data, $queue, $attempts = 0)
@@ -177,9 +184,10 @@ class RabbitMQ extends Connector
     /**
      * Create a payload string from the given job and data.
      *
-     * @param  string  $job
-     * @param  string  $queue
-     * @param  mixed   $data
+     * @param string $job
+     * @param string $queue
+     * @param mixed  $data
+     *
      * @return string
      */
     protected function createPayload($job, $data = '', $queue = null)
@@ -192,7 +200,7 @@ class RabbitMQ extends Connector
     }
 
     /**
-     * 随机id
+     * 随机id.
      *
      * @return string
      */
@@ -200,7 +208,6 @@ class RabbitMQ extends Connector
     {
         return Str::random(32);
     }
-
 
     /**
      * @param string $queueName
@@ -225,7 +232,7 @@ class RabbitMQ extends Connector
             $topic->addFlag(AmqpTopic::FLAG_AUTODELETE);
         }
 
-        if ($this->exchangeOptions['declare'] && ! in_array($exchangeName, $this->declaredExchanges, true)) {
+        if ($this->exchangeOptions['declare'] && !in_array($exchangeName, $this->declaredExchanges, true)) {
             $this->context->declareTopic($topic);
 
             $this->declaredExchanges[] = $exchangeName;
@@ -246,7 +253,7 @@ class RabbitMQ extends Connector
             $queue->addFlag(AmqpQueue::FLAG_AUTODELETE);
         }
 
-        if ($this->queueOptions['declare'] && ! in_array($queueName, $this->declaredQueues, true)) {
+        if ($this->queueOptions['declare'] && !in_array($queueName, $this->declaredQueues, true)) {
             $this->context->declareQueue($queue);
 
             $this->declaredQueues[] = $queueName;
@@ -266,16 +273,15 @@ class RabbitMQ extends Connector
 
     /**
      * @param string $action
-     * @param \Throwable $e
+     *
      * @throws \Exception
      */
     protected function reportConnectionError($action, \Throwable $e)
     {
-
         Log::error('AMQP error while attempting '.$action.': '.$e->getMessage());
 
         // If it's set to false, throw an error rather than waiting
-        if ($this->sleepOnError === false) {
+        if (false === $this->sleepOnError) {
             throw new \RuntimeException('Error writing data to the connection with RabbitMQ', null, $e);
         }
 
