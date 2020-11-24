@@ -28,19 +28,19 @@ class RabbitMQ extends Connector
     protected $context;
 
     protected $options = [
-        'dsn' => '',
-        'host' => '127.0.0.1',
-        'port' => 5672,
-        'login' => 'guest',
-        'password' => 'guest',
-        'vhost' => '/',
+        'dsn'        => '',
+        'host'       => '127.0.0.1',
+        'port'       => 5672,
+        'login'      => 'guest',
+        'password'   => 'guest',
+        'vhost'      => '/',
         'ssl_params' => [
-            'ssl_on' => false,
-            'cafile' => null,
-            'local_cert' => null,
-            'local_key' => null,
+            'ssl_on'      => false,
+            'cafile'      => null,
+            'local_cert'  => null,
+            'local_key'   => null,
             'verify_peer' => true,
-            'passphrase' => null,
+            'passphrase'  => null,
         ],
     ];
 
@@ -61,17 +61,17 @@ class RabbitMQ extends Connector
         }
 
         $factory = new AmqpConnectionFactory([
-            'dsn' => $this->options['dsn'],
-            'host' => $this->options['host'],
-            'port' => $this->options['port'],
-            'user' => $this->options['login'],
-            'pass' => $this->options['password'],
-            'vhost' => $this->options['vhost'],
-            'ssl_on' => $this->options['ssl_params']['ssl_on'],
-            'ssl_verify' => $this->options['ssl_params']['verify_peer'],
-            'ssl_cacert' => $this->options['ssl_params']['cafile'],
-            'ssl_cert' => $this->options['ssl_params']['local_cert'],
-            'ssl_key' => $this->options['ssl_params']['local_key'],
+            'dsn'            => $this->options['dsn'],
+            'host'           => $this->options['host'],
+            'port'           => $this->options['port'],
+            'user'           => $this->options['login'],
+            'pass'           => $this->options['password'],
+            'vhost'          => $this->options['vhost'],
+            'ssl_on'         => $this->options['ssl_params']['ssl_on'],
+            'ssl_verify'     => $this->options['ssl_params']['verify_peer'],
+            'ssl_cacert'     => $this->options['ssl_params']['cafile'],
+            'ssl_cert'       => $this->options['ssl_params']['local_cert'],
+            'ssl_key'        => $this->options['ssl_params']['local_key'],
             'ssl_passphrase' => $this->options['ssl_params']['passphrase'],
         ]);
 
@@ -176,7 +176,7 @@ class RabbitMQ extends Connector
     public function release($delay, $job, $data, $queue, $attempts = 0)
     {
         return $this->pushRaw($this->createPayload($job, $data, $queue), $queue, [
-            'delay' => $delay,
+            'delay'    => $delay,
             'attempts' => $attempts,
         ]);
     }
@@ -193,7 +193,9 @@ class RabbitMQ extends Connector
     protected function createPayload($job, $data = '', $queue = null)
     {
         $payload = $this->setMeta(
-            parent::createPayload($job, $data), 'id', $this->getRandomId()
+            parent::createPayload($job, $data),
+            'id',
+            $this->getRandomId()
         );
 
         return $this->setMeta($payload, 'attempts', 1);
