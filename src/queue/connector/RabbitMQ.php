@@ -17,7 +17,6 @@ use wzhanjun\queue\job\RabbitMQ as RabbitMQJob;
 
 class RabbitMQ extends Connector
 {
-
     /* @var AmqpContext */
     protected $context;
 
@@ -29,12 +28,12 @@ class RabbitMQ extends Connector
         'password'   => 'guest',
         'vhost'      => '/',
         'ssl_params' => [
-            'ssl_on' => false,
-            'cafile' => null,
-            'local_cert' => null,
-            'local_key' => null,
+            'ssl_on'      => false,
+            'cafile'      => null,
+            'local_cert'  => null,
+            'local_key'   => null,
             'verify_peer' => true,
-            'passphrase' => null,
+            'passphrase'  => null,
         ],
     ];
 
@@ -55,17 +54,17 @@ class RabbitMQ extends Connector
         }
 
         $factory = new AmqpConnectionFactory([
-            'dsn' => $this->options['dsn'],
-            'host' => $this->options['host'],
-            'port' => $this->options['port'],
-            'user' => $this->options['login'],
-            'pass' => $this->options['password'],
-            'vhost' => $this->options['vhost'],
-            'ssl_on' => $this->options['ssl_params']['ssl_on'],
-            'ssl_verify' => $this->options['ssl_params']['verify_peer'],
-            'ssl_cacert' => $this->options['ssl_params']['cafile'],
-            'ssl_cert' => $this->options['ssl_params']['local_cert'],
-            'ssl_key' => $this->options['ssl_params']['local_key'],
+            'dsn'            => $this->options['dsn'],
+            'host'           => $this->options['host'],
+            'port'           => $this->options['port'],
+            'user'           => $this->options['login'],
+            'pass'           => $this->options['password'],
+            'vhost'          => $this->options['vhost'],
+            'ssl_on'         => $this->options['ssl_params']['ssl_on'],
+            'ssl_verify'     => $this->options['ssl_params']['verify_peer'],
+            'ssl_cacert'     => $this->options['ssl_params']['cafile'],
+            'ssl_cert'       => $this->options['ssl_params']['local_cert'],
+            'ssl_key'        => $this->options['ssl_params']['local_key'],
             'ssl_passphrase' => $this->options['ssl_params']['passphrase'],
         ]);
 
@@ -135,7 +134,7 @@ class RabbitMQ extends Connector
 
     public function later($delay, $job, $data = '', $queue = null)
     {
-        return $this->pushRaw($this->createPayload($job,$data, $queue), $queue, ['delay' => $delay]);
+        return $this->pushRaw($this->createPayload($job, $data, $queue), $queue, ['delay' => $delay]);
     }
 
     public function pop($queueName = null)
@@ -159,17 +158,18 @@ class RabbitMQ extends Connector
     /**
      * Release a reserved job back onto the queue.
      *
-     * @param  \DateTimeInterface|\DateInterval|int $delay
-     * @param  string|object $job
-     * @param  mixed $data
-     * @param  string $queue
-     * @param  int $attempts
+     * @param \DateTimeInterface|\DateInterval|int $delay
+     * @param string|object                        $job
+     * @param mixed                                $data
+     * @param string                               $queue
+     * @param int                                  $attempts
+     *
      * @return mixed
      */
     public function release($delay, $job, $data, $queue, $attempts = 0)
     {
         return $this->pushRaw($this->createPayload($job, $data, $queue), $queue, [
-            'delay' => $delay,
+            'delay'    => $delay,
             'attempts' => $attempts,
         ]);
     }
@@ -177,22 +177,25 @@ class RabbitMQ extends Connector
     /**
      * Create a payload string from the given job and data.
      *
-     * @param  string  $job
-     * @param  string  $queue
-     * @param  mixed   $data
+     * @param string $job
+     * @param string $queue
+     * @param mixed  $data
+     *
      * @return string
      */
     protected function createPayload($job, $data = '', $queue = null)
     {
         $payload = $this->setMeta(
-            parent::createPayload($job, $data), 'id', $this->getRandomId()
+            parent::createPayload($job, $data),
+            'id',
+            $this->getRandomId()
         );
 
         return $this->setMeta($payload, 'attempts', 1);
     }
 
     /**
-     * 随机id
+     * 随机id.
      *
      * @return string
      */
@@ -200,7 +203,6 @@ class RabbitMQ extends Connector
     {
         return Str::random(32);
     }
-
 
     /**
      * @param string $queueName
@@ -225,7 +227,7 @@ class RabbitMQ extends Connector
             $topic->addFlag(AmqpTopic::FLAG_AUTODELETE);
         }
 
-        if ($this->exchangeOptions['declare'] && ! in_array($exchangeName, $this->declaredExchanges, true)) {
+        if ($this->exchangeOptions['declare'] && !in_array($exchangeName, $this->declaredExchanges, true)) {
             $this->context->declareTopic($topic);
 
             $this->declaredExchanges[] = $exchangeName;
@@ -246,7 +248,7 @@ class RabbitMQ extends Connector
             $queue->addFlag(AmqpQueue::FLAG_AUTODELETE);
         }
 
-        if ($this->queueOptions['declare'] && ! in_array($queueName, $this->declaredQueues, true)) {
+        if ($this->queueOptions['declare'] && !in_array($queueName, $this->declaredQueues, true)) {
             $this->context->declareQueue($queue);
 
             $this->declaredQueues[] = $queueName;
@@ -265,13 +267,13 @@ class RabbitMQ extends Connector
     }
 
     /**
-     * @param string $action
+     * @param string     $action
      * @param \Throwable $e
+     *
      * @throws \Exception
      */
     protected function reportConnectionError($action, \Throwable $e)
     {
-
         Log::error('AMQP error while attempting '.$action.': '.$e->getMessage());
 
         // If it's set to false, throw an error rather than waiting

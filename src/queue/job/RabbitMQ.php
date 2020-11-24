@@ -2,12 +2,12 @@
 
 namespace wzhanjun\queue\job;
 
+use Exception;
+use Interop\Amqp\AmqpConsumer;
+use Interop\Amqp\AmqpMessage;
 use think\helper\Str;
 use think\queue\Job;
 use wzhanjun\queue\connector\RabbitMQ as RabbitMQQueue;
-use Interop\Amqp\AmqpConsumer;
-use Interop\Amqp\AmqpMessage;
-use Exception;
 
 class RabbitMQ extends Job
 {
@@ -74,7 +74,6 @@ class RabbitMQ extends Job
         $this->connection->release($delay, $job, $data, $this->getQueue(), $this->attempts() + 1);
     }
 
-
     /**
      * Get the decoded body of the job.
      *
@@ -116,7 +115,8 @@ class RabbitMQ extends Job
     /**
      * Determine if the given exception was caused by a deadlock.
      *
-     * @param  \Exception  $e
+     * @param \Exception $e
+     *
      * @return bool
      */
     protected function causedByDeadlock(Exception $e)

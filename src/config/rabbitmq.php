@@ -8,18 +8,17 @@
 
 use think\Env;
 
-
 return [
 
     'connector' => 'jayazhao\\queue\\connector\\RabbitMQ',
 
-    'dsn' =>  Env::get('RABBITMQ_DSN', null),
+    'dsn' => Env::get('RABBITMQ_DSN', null),
 
     'host' => Env::get('RABBITMQ_HOST', '127.0.0.1'),
     'port' => Env::get('RABBITMQ_PORT', 5672),
 
-    'vhost' => Env::get('RABBITMQ_VHOST', '/'),
-    'login' => Env::get('RABBITMQ_LOGIN', 'guest'),
+    'vhost'    => Env::get('RABBITMQ_VHOST', '/'),
+    'login'    => Env::get('RABBITMQ_LOGIN', 'guest'),
     'password' => Env::get('RABBITMQ_PASSWORD', 'guest'),
 
     'queue' => Env::get('RABBITMQ_QUEUE', 'default'),
@@ -38,11 +37,11 @@ return [
             /*
             * Read more about possible values at https://www.rabbitmq.com/tutorials/amqp-concepts.html
             */
-            'type' => Env::get('RABBITMQ_EXCHANGE_TYPE', \Interop\Amqp\AmqpTopic::TYPE_DIRECT),
-            'passive' => Env::get('RABBITMQ_EXCHANGE_PASSIVE', false),
-            'durable' => Env::get('RABBITMQ_EXCHANGE_DURABLE', true),
+            'type'        => Env::get('RABBITMQ_EXCHANGE_TYPE', \Interop\Amqp\AmqpTopic::TYPE_DIRECT),
+            'passive'     => Env::get('RABBITMQ_EXCHANGE_PASSIVE', false),
+            'durable'     => Env::get('RABBITMQ_EXCHANGE_DURABLE', true),
             'auto_delete' => Env::get('RABBITMQ_EXCHANGE_AUTODELETE', false),
-            'arguments' => Env::get('RABBITMQ_EXCHANGE_ARGUMENTS'),
+            'arguments'   => Env::get('RABBITMQ_EXCHANGE_ARGUMENTS'),
         ],
 
         'queue' => [
