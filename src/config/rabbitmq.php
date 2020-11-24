@@ -17,8 +17,8 @@ return [
     'host' => Env::get('RABBITMQ_HOST', '127.0.0.1'),
     'port' => Env::get('RABBITMQ_PORT', 5672),
 
-    'vhost'    => Env::get('RABBITMQ_VHOST', '/'),
-    'login'    => Env::get('RABBITMQ_LOGIN', 'guest'),
+    'vhost' => Env::get('RABBITMQ_VHOST', '/'),
+    'login' => Env::get('RABBITMQ_LOGIN', 'guest'),
     'password' => Env::get('RABBITMQ_PASSWORD', 'guest'),
 
     'queue' => Env::get('RABBITMQ_QUEUE', 'default'),
@@ -35,11 +35,11 @@ return [
             /*
             * Read more about possible values at https://www.rabbitmq.com/tutorials/amqp-concepts.html
             */
-            'type'        => Env::get('RABBITMQ_EXCHANGE_TYPE', \Interop\Amqp\AmqpTopic::TYPE_DIRECT),
-            'passive'     => Env::get('RABBITMQ_EXCHANGE_PASSIVE', false),
-            'durable'     => Env::get('RABBITMQ_EXCHANGE_DURABLE', true),
+            'type' => Env::get('RABBITMQ_EXCHANGE_TYPE', \Interop\Amqp\AmqpTopic::TYPE_DIRECT),
+            'passive' => Env::get('RABBITMQ_EXCHANGE_PASSIVE', false),
+            'durable' => Env::get('RABBITMQ_EXCHANGE_DURABLE', true),
             'auto_delete' => Env::get('RABBITMQ_EXCHANGE_AUTODELETE', false),
-            'arguments'   => Env::get('RABBITMQ_EXCHANGE_ARGUMENTS'),
+            'arguments' => Env::get('RABBITMQ_EXCHANGE_ARGUMENTS'),
         ],
 
         'queue' => [
@@ -56,11 +56,11 @@ return [
             /*
             * Read more about possible values at https://www.rabbitmq.com/tutorials/amqp-concepts.html
             */
-            'passive'     => Env::get('RABBITMQ_QUEUE_PASSIVE', false),
-            'durable'     => Env::get('RABBITMQ_QUEUE_DURABLE', true),
-            'exclusive'   => Env::get('RABBITMQ_QUEUE_EXCLUSIVE', false),
+            'passive' => Env::get('RABBITMQ_QUEUE_PASSIVE', false),
+            'durable' => Env::get('RABBITMQ_QUEUE_DURABLE', true),
+            'exclusive' => Env::get('RABBITMQ_QUEUE_EXCLUSIVE', false),
             'auto_delete' => Env::get('RABBITMQ_QUEUE_AUTODELETE', false),
-            'arguments'   => Env::get('RABBITMQ_QUEUE_ARGUMENTS'),
+            'arguments' => Env::get('RABBITMQ_QUEUE_ARGUMENTS'),
         ],
     ],
 
@@ -74,11 +74,11 @@ return [
      * Optional SSL params if an SSL connection is used
      */
     'ssl_params' => [
-        'ssl_on'      => Env::get('RABBITMQ_SSL', false),
-        'cafile'      => Env::get('RABBITMQ_SSL_CAFILE', null),
-        'local_cert'  => Env::get('RABBITMQ_SSL_LOCALCERT', null),
-        'local_key'   => Env::get('RABBITMQ_SSL_LOCALKEY', null),
+        'ssl_on' => Env::get('RABBITMQ_SSL', false),
+        'cafile' => Env::get('RABBITMQ_SSL_CAFILE', null),
+        'local_cert' => Env::get('RABBITMQ_SSL_LOCALCERT', null),
+        'local_key' => Env::get('RABBITMQ_SSL_LOCALKEY', null),
         'verify_peer' => Env::get('RABBITMQ_SSL_VERIFY_PEER', true),
-        'passphrase'  => Env::get('RABBITMQ_SSL_PASSPHRASE', null),
+        'passphrase' => Env::get('RABBITMQ_SSL_PASSPHRASE', null),
     ],
 ];
